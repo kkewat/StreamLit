@@ -5,5 +5,8 @@ streamlit
 opencv-python
 pandas
 requests
-io
+matplotlib
+scikit-learn
+beautifulsoup4
+pillow
 gunicorn
