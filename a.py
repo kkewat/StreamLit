@@ -3,9 +3,20 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing import image
 import numpy as np
 import cv2
+import requests
+from io import BytesIO
 
-# Load your trained model
-model = tf.keras.models.load_model("C:\\Users\\Lenovo\\Downloads\\resnet50_model_multilabel.keras")
+# URL of your model in DigitalOcean Spaces
+model_url = 'https://models-spaces30.blr1.digitaloceanspaces.com/resnet50_model_multilabel.keras'
+
+# Download the model file from the URL
+response = requests.get(model_url)
+if response.status_code == 200:
+    # Load the model from the downloaded content
+    model = tf.keras.models.load_model(BytesIO(response.content))
+    model.summary()
+else:
+    st.error("Failed to download the model file.")
 
 def preprocess_image(image_file):
     img = image.load_img(image_file, target_size=(224, 224))
@@ -76,7 +87,7 @@ def predict(image_file):
     return predicted_class_name
 
 def main():
-    st.title("Image Classifier")
+    st.title("Crop Disease Detection Image Classifier")
 
     # File uploader
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
@@ -84,7 +95,7 @@ def main():
     if uploaded_file is not None:
         st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
         predicted_class = predict(uploaded_file)
-        st.write("Prediction:", predicted_class)
+        st.write("***Prediction: ***", predicted_class)
 
 if __name__ == "__main__":
     main()
