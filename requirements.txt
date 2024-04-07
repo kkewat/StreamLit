@@ -4,4 +4,6 @@ tensorflow
 streamlit
 opencv-python
 pandas
+requests
+io
 gunicorn
