@@ -2,9 +2,9 @@ import streamlit as st
 import tensorflow as tf
 from tensorflow.keras.preprocessing import image
 import numpy as np
-import cv2
 import requests
 from io import BytesIO
+import cv2
 
 # URL of your model in DigitalOcean Spaces
 model_url = r'https://models-spaces30.blr1.digitaloceanspaces.com/resnet50_model_multilabel.keras'
