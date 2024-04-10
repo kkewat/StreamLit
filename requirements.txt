@@ -2,7 +2,7 @@ flask
 numpy
 tensorflow
 streamlit
-opencv
+opencv-python
 pandas
 requests
 matplotlib
