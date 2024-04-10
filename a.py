@@ -11,12 +11,6 @@ model_url = r'https://models-spaces30.blr1.digitaloceanspaces.com/resnet50_model
 
 # Download the model file from the URL
 response = requests.get(model_url)
-#if response.status_code == 200:
-    # Load the model from the downloaded content
-  #  model = tf.keras.models.load_model(BytesIO(response.content))
- #   model.summary()
-#else:
- #   st.error("Failed to download the model file.")
 # Download the model file from DigitalOcean
 with open("CDD_2_2_9082per.keras", "wb") as f:
     f.write(response.content)
