@@ -7,7 +7,7 @@ import requests
 from io import BytesIO
 
 # URL of your model in DigitalOcean Spaces
-model_url = 'https://models-spaces30.blr1.digitaloceanspaces.com/resnet50_model_multilabel.keras'
+model_url = r'https://models-spaces30.blr1.digitaloceanspaces.com/resnet50_model_multilabel.keras'
 
 # Download the model file from the URL
 response = requests.get(model_url)
