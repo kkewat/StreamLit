@@ -4,7 +4,7 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 import requests
 from io import BytesIO
-import cv2
+#import cv2
 
 # URL of your model in DigitalOcean Spaces
 model_url = r'https://models-spaces30.blr1.digitaloceanspaces.com/resnet50_model_multilabel.keras'
@@ -28,7 +28,7 @@ model = tf.keras.models.load_model("CDD_2_2_9082per.keras")
 def preprocess_image(image_file):
     img = image.load_img(image_file, target_size=(224, 224))
     img = image.img_to_array(img)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)  # Convert to HSV
+    img = tf.image.rgb_to_hsv(img)  # Convert to HSV
     img = np.expand_dims(img, axis=0)
     img = img / 255.0
     return img
