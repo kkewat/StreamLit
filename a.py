@@ -100,7 +100,7 @@ def main():
     if uploaded_file is not None:
         st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
         predicted_class = predict(uploaded_file)
-        st.write("***Prediction: ***", predicted_class)
+        st.write("Prediction: ", predicted_class)
 
 if __name__ == "__main__":
     main()
