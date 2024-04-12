@@ -83,7 +83,28 @@ def predict(image_file):
     preds = model.predict(img)
     predicted_class = np.argmax(preds)
     predicted_class_name = classes(predicted_class)
-    return predicted_class_name
+
+    # Replace the prediction probabilities with your actual values
+    prediction_probabilities = np.array(preds)
+    # Apply softmax
+    probabilities = np.exp(prediction_probabilities) / np.sum(np.exp(prediction_probabilities))
+    max_prob_index = np.argmax(probabilities)
+    max_prob = probabilities[0, max_prob_index]
+
+    # Get the indices of the probabilities sorted in descending order
+    sorted_indices = np.argsort(probabilities)[0][::-1]
+    
+    # Extract the top four classes and their probabilities
+    top_classes = sorted_indices[:10]
+    top_probabilities = probabilities[0, top_classes]
+
+    top_n_prediction = []
+
+    for i, (class_idx, prob) in enumerate(zip(top_classes, top_probabilities), 1):
+        prediction = f"Class {classes(class_idx)}: Probability {prob:.4f}"
+        top_n_prediction.append(prediction)
+        
+    return predicted_class_name, top_n_prediction
 
 def main():
     st.title("Crop Disease Detection Image Classifier")
@@ -94,7 +115,11 @@ def main():
     if uploaded_file is not None:
         st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
         predicted_class = predict(uploaded_file)
-        st.write("Prediction: ", predicted_class)
+        #st.write("Prediction: ", predicted_class)
+        st.markdown(f"**Prediction:** {predicted_class}", unsafe_allow_html=True)
+        st.markdown("**Probability of top 5 classes with maximum classes:**")
+        for i in range(len(top_n_probability)):
+            st.markdown(f"{top_n_probability[i]}\n")
 
 if __name__ == "__main__":
     main()
