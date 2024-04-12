@@ -114,7 +114,7 @@ def main():
 
     if uploaded_file is not None:
         st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
-        predicted_class = predict(uploaded_file)
+        predicted_class, top_n_probability = predict(uploaded_file)
         #st.write("Prediction: ", predicted_class)
         st.markdown(f"**Prediction:** {predicted_class}", unsafe_allow_html=True)
         st.markdown("**Probability of top 5 classes with maximum classes:**")
